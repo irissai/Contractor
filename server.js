@@ -14,7 +14,7 @@ const app = express();
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 
 app.use('/api/progress', progressRoutes);
@@ -43,6 +43,9 @@ app.get('/progress', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'progress.html'));
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+});
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
