@@ -15,7 +15,7 @@ const ProjectOverview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://contractor-6j0k.onrender.comapi/task/")
+    axios.get("https://contractor-6j0k.onrender.com/api/task/")
       .then(response => {
         const data = response.data;
         let allTasks = [];
