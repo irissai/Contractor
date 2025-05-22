@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Progress Update</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f6f9;
+        }
+
+        h2,
+        h3 {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #edc44aa2;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #edc44aa2;
+        }
+
+  #workTypeCheckboxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* แบ่ง 2 คอลัม */
+    gap: 10px 20px; /* ระยะห่างระหว่างช่อง */
+  }
+
+  #workTypeCheckboxes label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+  }
+
+        .underline-input {
+  border: none;     
+  border-bottom: 1px dotted #edc44aa2; 
+  outline: none;        
+  padding: 5px 0;         
+  width: 40%;             
+}
+
+
+
+    </style>
+</head>
+
+<body>
+       
+            <h3>แบบฟอร์มใบรีเควส</h3>
+        <div id="project-info"></div>
+            <p><strong>ชื่อโครงการ:</strong> <span id="projectName"></span></p>
+            <p><strong>เลขแปลง:</strong> <span id="plotNumber"></span></p>
+            <p><strong>แบบบ้าน:</strong> <span id="houseDetail"></span></p>
+        </div>
+
+<form>
+          <label>ประเภทงาน:</label><br>
+<div id="workTypeCheckboxes">
+  <label>
+    <input type="checkbox" name="workType" value="ตอกเข็มที่"> ตอกเข็มที่
+    <input type="text" name="detail_ตอกเข็มที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="เทคอนกรีตที่"> เทคอนกรีตที่
+    <input type="text" name="detail_เทคอนกรีตที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="วางแผ่นพื้นสำเร็จรูปชั้นที่"> วางแผ่นพื้นสำเร็จรูปชั้นที่
+    <input type="text" name="detail_วางแผ่นพื้นสำเร็จรูปชั้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ก่ออิฐชั้นที่"> ก่ออิฐชั้นที่
+    <input type="text" name="detail_ก่ออิฐชั้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ปูนทรายปรับระดับพื้นที่"> ปูนทรายปรับระดับพื้นที่
+    <input type="text" name="detail_ปูนทรายปรับระดับพื้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ก่ออิฐปิดช่อง Shafl ที่"> ก่ออิฐปิดช่อง Shafl ที่
+    <input type="text" name="detail_ก่ออิฐปิดช่อง Shaft ที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ฉาบปูนชั้นที่"> ฉาบปูนชั้นที่
+    <input type="text" name="detail_ฉาบปูนชั้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="Skin Coat ชั้นที่"> Skin Coat ชั้นที่
+    <input type="text" name="detail_Skin Coat ชั้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ปูกระเบื้อง"> ปูกระเบื้อง พื้น, ผนัง, ห้องน้ำ
+    <input type="text" name="detail_ปูกระเบื้อง" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ทาน้ำยากันซึมที่ผนัง"> ทาน้ำยากันซึมที่ผนัง
+    <input type="text" name="detail_ทาน้ำยากันซึมที่ผนัง" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ทาสีรองพื้นที่"> ทาสีรองพื้นที่
+    <input type="text" name="detail_ทาสีรองพื้นที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ติดตั้งวงกบอลูมิเนียม/UPVCที่"> ติดตั้งวงกบอลูมิเนียม/UPVCที่
+    <input type="text" name="detail_ติดตั้งวงกบอลูมิเนียม/UPVCที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ติดตั้งฝ้าเพดานที่"> ติดตั้งฝ้าเพดานที่
+    <input type="text" name="detail_ติดตั้งฝ้าเพดานที่" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ติดตั้งสุขภัณฑ์ห้องน้ำ"> ติดตั้งสุขภัณฑ์ห้องน้ำ
+    <input type="text" name="detail_ติดตั้งสุขภัณฑ์ห้องน้ำ" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ติดตั้งไม้บันได"> ติดตั้งไม้บันได
+    <input type="text" name="detail_ติดตั้งไม้บันได" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ติดตั้งถังบำบัดน้ำเสีย,ถังดักไขมัน"> ติดตั้งถังบำบัดน้ำเสีย,ถังดักไขมัน
+    <input type="text" name="detail_ติดตั้งถังบำบัดน้ำเสีย,ถังดักไขมัน" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ปักแท่ง Ground Rod และเชื่อมต่อสายดิน"> ปักแท่ง Ground Rod และเชื่อมต่อสายดิน
+    <input type="text" name="detail_ปักแท่ง Ground Rod และเชื่อมต่อสายดิน" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="กลบดินฝังท่อไฟฟ้า,ทีวี,โทรศัพท์"> กลบดินฝังท่อไฟฟ้า,ทีวี,โทรศัพท์
+    <input type="text" name="detail_กลบดินฝังท่อไฟฟ้า,ทีวี,โทรศัพท์" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="กลบดินฝังท่อสุขาภิบาล"> กลบดินฝังท่อสุขาภิบาล
+    <input type="text" name="detail_กลบดินฝังท่อสุขาภิบาล" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ทดสอบระบบไฟฟ้า, ทีวี, โทรทัศน์"> ทดสอบระบบไฟฟ้า, ทีวี, โทรทัศน์
+    <input type="text" name="detail_ทดสอบระบบไฟฟ้า, ทีวี, โทรทัศน์" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ทดสอบระบบประปาสุขาภิบาล"> ทดสอบระบบประปาสุขาภิบาล
+    <input type="text" name="detail_ทดสอบระบบประปาสุขาภิบาล" class="underline-input">
+  </label>
+
+  <label>
+    <input type="checkbox" name="workType" value="ต่อท่อระบายน้ำอาคารกับบ่อพักโครงการ"> ต่อท่อระบายน้ำอาคารกับบ่อพักโครงการ
+    <input type="text" name="detail_ต่อท่อระบายน้ำอาคารกับบ่อพักโครงการ" class="underline-input">
+  </label>
+<!-- </div> -->
+
+            <div style="margin-top:15px;">
+                <label>ผู้รับเหมาพร้อมให้เข้าตรวจ:</label><br>
+                วันที่: <input type="date" id="inspectionDate" required>
+                เวลา: <input type="time" id="inspectionTime" required>
+            </div>
+
+            <br>
+            <div class="btn-group"></div>
+            <button class="btn btn-warning" onclick="requestInspection()">ร้องขอตรวจงาน</button>
+            </div>
+        </div>
+
+  </table>
+
+
+  </div>
+
+  <script>
+    function submitProgress() {
+      alert('บันทึกความคืบหน้าเรียบร้อยแล้ว!');
+      // TODO: ส่งข้อมูลไปยัง backend
+    }
+
+    function requestInspection() {
+      alert('ส่งคำร้องขอตรวจงานเรียบร้อยแล้ว!');
+      // TODO: ส่งคำขอไปยัง backend
+    }
+  </script>
+  <script>
+document.getElementById('submitRequestBtn').addEventListener('click', async () => {
+  const progressId = getProgressId(); // สร้างฟังก์ชันนี้ให้ได้ ID ที่เกี่ยวข้อง
+
+  // เก็บข้อมูล precheck
+  const precheckData = collectPrecheckData(); // สร้างฟังก์ชันแยก
+
+  // เก็บข้อมูลในแบบฟอร์มใบรีเควส
+  const requestForm = {
+    inspectorName: document.getElementById('inspectorName').value,
+    requestDate: document.getElementById('requestDate').value,
+    note: document.getElementById('note').value
+  };
+
+  try {
+    // POST precheck
+    await fetch(`/api/progress/${progressId}/precheck`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ precheckData })
+    });
+
+    // POST inspection request
+    await fetch(`/api/progress/${progressId}/inspection-request`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestForm)
+    });
+
+    alert("ร้องขอตรวจงานเรียบร้อย");
+  } catch (error) {
+    alert("เกิดข้อผิดพลาดในการร้องขอตรวจงาน");
+  }
+});
+</script>
+
+</body>
+
+</html>

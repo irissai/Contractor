@@ -1,0 +1,31 @@
+.top-navbar {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 0.75rem 1rem;
+  color: white;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.top-navbar.scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.icon-user {
+  width: 2vw;
+  height: auto;
+  color: #8b8b8b;
+}
+
+.logo img {
+  width: 12vw;
+  height: auto;
+}
+

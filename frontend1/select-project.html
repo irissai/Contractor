@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>กรุณาเลือกโครงการและเลขแปลง</title>
+</head>
+<body>
+  <h2>เลือกโครงการและเลขแปลง</h2>
+  <form id="projectForm">
+    <label>ชื่อโครงการ:</label><br/>
+    <select id="projectDropdown" onchange="toggleProjectInput()">
+      <option value="">-- เลือกโครงการ --</option>
+      <option value="ศุภาลัย ไพร์ด อนุสาวรีย์ฯ-ป่าคลอก">ศุภาลัย ไพร์ด อนุสาวรีย์ฯ-ป่าคลอก</option>
+      <option value="other">อื่นๆ</option>
+    </select><br/><br/>
+
+    <input type="text" id="projectInput" placeholder="พิมพ์ชื่อโครงการ..." style="display: none;" />
+
+    <label>เลขแปลง:</label><br/>
+    <input type="text" id="plotNumber" required /><br/><br/>
+
+    <button onclick="goToOverview()">ยืนยัน</button>
+
+  </form>
+
+  <script> 
+
+      function goToOverview() {
+    const project = document.getElementById('projectInput').value.trim();
+    const plot = document.getElementById('plotInput').value.trim();
+
+    if (project && plot) {
+      const encodedProject = encodeURIComponent(project);
+      const encodedPlot = encodeURIComponent(plot);
+      window.location.href = `overview.htmlproject=${encodedProject}&plot=${encodedPlot}`;
+    } else {
+      alert("กรุณากรอกชื่อโครงการและเลขที่แปลงให้ครบถ้วน");
+    }
+  }
+  
+    function toggleProjectInput() {
+      const dropdown = document.getElementById('projectDropdown');
+      const input = document.getElementById('projectInput');
+      if (dropdown.value === 'other') {
+        input.style.display = 'block';
+      } else {
+        input.style.display = 'none';
+        input.value = ''; // reset
+      }
+    }
+
+    document.getElementById('projectForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const selectedProject = document.getElementById('projectDropdown').value;
+      const customProject = document.getElementById('projectInput').value;
+      const plotNumber = document.getElementById('plotNumber').value;
+
+      const projectName = selectedProject === 'other' ? customProject : selectedProject;
+
+      if (!projectName || !plotNumber) {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+      }
+
+      // เก็บไว้ใน localStorage ส่งต่อไปหน้าถัดไป
+      localStorage.setItem('projectName', projectName);
+      localStorage.setItem('plotNumber', plotNumber);
+
+      // ไปหน้า project overview
+      window.location.href = 'overview.html';
+    });
+  </script>
+</body>
+</html>

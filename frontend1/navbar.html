@@ -1,0 +1,78 @@
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+nav {
+  width: 20%;
+  height: 100vh;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  background-color: rgb(255, 255, 255);
+  margin: 2px;
+  padding: 10px 10px;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+nav ul li:hover {
+  background-color: #edc44a;
+}
+
+nav ul li.active {
+  background-color: #f7d860;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+nav ul li.logout a {
+  display: flex;
+  align-items: center;
+}
+
+.fa-solid.fa-right-from-bracket {
+  margin-right: 4px;
+}
+
+main {
+  margin-left: 20%; /* ทำให้เนื้อหาอยู่ข้างขวาของ nav */
+  padding: 20px;
+}
+</style>
+
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html" data-page="index.html">หน้าหลัก</a></li>
+      <li><a href="progress.html" data-page="progress.html">Progress</a></li>
+      <li><a href="request.html" data-page="request.html">รีเควส</a></li>
+      <li><a href="pending.html" data-page="pending.html">กำลังรอดำเนินการ</a></li>
+      <li class="logout"><a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i>ออกจากระบบ</a></li>
+    </ul>
+  </nav>
+
+  <script src="script.js"></script>
+  <script src="https://kit.fontawesome.com/491181ce4b.js" crossorigin="anonymous"></script>

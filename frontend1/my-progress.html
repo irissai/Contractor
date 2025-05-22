@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>บันทึกความก้าวหน้า</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h2 { background: #b76f30; color: white; padding: 10px; }
+    .section { margin-top: 30px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 8px; border: 1px solid #ccc; }
+    .pass-fail input { margin-right: 5px; }
+    .file-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>บันทึกความก้าวหน้ารายแปลง (Progress)</h2>
+
+  <p><strong>โครงการ:</strong> <span id="projectName"></span></p>
+<p><strong>เลขแปลง:</strong> <span id="plotNumber"></span></p>
+<p><strong>ชื่องาน:</strong> <span id="taskName"></span></p>
+
+  <form id="progressForm" enctype="multipart/form-data">
+
+    <!-- ✅ Precheck -->
+    <div class="section">
+      <h3>Precheck</h3>
+      <table>
+        <thead><tr><th>รายการ</th><th>ผ่าน</th><th>ไม่ผ่าน</th></tr></thead>
+        <tbody id="precheckTable">
+          <tr><td>มีพื้นที่ใช้ตอกเข็มเหมาะสม</td>
+              <td><input type="radio" name="pre0" value="true" required></td>
+              <td><input type="radio" name="pre0" value="false"></td></tr>
+          <tr><td>เสาเข็มอยู่ในสภาพดี</td>
+              <td><input type="radio" name="pre1" value="true" required></td>
+              <td><input type="radio" name="pre1" value="false"></td></tr>
+          <tr><td>มี Blow Count อยู่ครบ</td>
+              <td><input type="radio" name="pre2" value="true" required></td>
+              <td><input type="radio" name="pre2" value="false"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ✅ Upload -->
+    <div class="section">
+      <h3>รายการแนบเอกสาร</h3>
+      <div class="file-row">
+        รายการตอกหมุดลูกดิ่ง: <input type="file" name="doc0" accept="application/pdf" required>
+      </div>
+      <div class="file-row">
+        รูปตอกหมุด: <input type="file" name="doc1" accept="image/*" required>
+      </div>
+      <div class="file-row">
+        รายการ Blow Count: <input type="file" name="doc2" accept="application/pdf" required>
+      </div>
+    </div>
+
+    <!-- ✅ Postcheck -->
+    <div class="section">
+      <h3>Postcheck</h3>
+      <table>
+        <thead><tr><th>รายการ</th><th>ผ่าน</th><th>ไม่ผ่าน</th></tr></thead>
+        <tbody id="postcheckTable">
+          <tr><td>ขนาดและจำนวนเสาเข็มถูกต้อง</td>
+              <td><input type="radio" name="post0" value="true" required></td>
+              <td><input type="radio" name="post0" value="false"></td></tr>
+          <tr><td>เสาเข็มไม่แตกร้าว</td>
+              <td><input type="radio" name="post1" value="true" required></td>
+              <td><input type="radio" name="post1" value="false"></td></tr>
+          <tr><td>ผล Blow Count ตรง</td>
+              <td><input type="radio" name="post2" value="true" required></td>
+              <td><input type="radio" name="post2" value="false"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <button type="submit">ส่งข้อมูลความก้าวหน้า</button>
+    <p id="msg"></p>
+  </form>
+
+  <script>
+    
+    document.getElementById('projectName').textContent = project;
+    document.getElementById('plotNumber').textContent = plot;
+    document.getElementById('taskName').textContent = task;
+
+    // ส่งข้อมูล
+    document.getElementById('progressForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      const checklist = [];
+
+      // ✅ รวม Precheck
+      for (let i = 0; i < 3; i++) {
+        const value = document.querySelector(`input[name="pre${i}"]:checked`);
+        if (value) checklist.push({ item: `pre${i}`, passed: value.value === 'true' });
+      }
+
+      // ✅ รวม Postcheck
+      for (let i = 0; i < 3; i++) {
+        const value = document.querySelector(`input[name="post${i}"]:checked`);
+        if (value) checklist.push({ item: `post${i}`, passed: value.value === 'true' });
+      }
+
+      // ✅ แนบเอกสาร
+      for (let i = 0; i < 3; i++) {
+        const fileInput = document.querySelector(`input[name="doc${i}"]`);
+        if (fileInput && fileInput.files.length > 0) {
+          formData.append('docs', fileInput.files[0]);
+        }
+      }
+
+      // ✅ ข้อมูลหลัก
+      formData.append('project', project);
+      formData.append('plotNumber', plot);
+      formData.append('phase', task);
+      formData.append('checklist', JSON.stringify(checklist));
+
+      const token = localStorage.getItem('token');
+
+      try {
+        const res = await fetch('http://localhost:3000/api/progress', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('msg').style.color = 'green';
+          document.getElementById('msg').textContent = 'บันทึกความก้าวหน้าสำเร็จแล้ว';
+        } else {
+          document.getElementById('msg').style.color = 'red';
+          document.getElementById('msg').textContent = data.error || 'ส่งข้อมูลไม่สำเร็จ';
+        }
+      } catch (err) {
+        document.getElementById('msg').style.color = 'red';
+        document.getElementById('msg').textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์';
+      }
+    });
+  </script>
+  <script>
+    const project = localStorage.getItem("projectName") || localStorage.getItem("selectedProject");
+    const plot = localStorage.getItem("plotNumber") || localStorage.getItem("selectedPlot");
+    const task = localStorage.getItem("taskName") || localStorage.getItem("selectedTask");
+  
+    document.getElementById("projectName").textContent = project;
+    document.getElementById("plotNumber").textContent = plot;
+    document.getElementById("taskName").textContent = task;
+  
+    document.getElementById("progressForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData();
+      const checklist = [];
+  
+      for (let i = 0; i < 3; i++) {
+        const pre = document.querySelector(`input[name="pre${i}"]:checked`);
+        const post = document.querySelector(`input[name="post${i}"]:checked`);
+        if (pre) checklist.push({ item: `pre${i}`, passed: pre.value === "true" });
+        if (post) checklist.push({ item: `post${i}`, passed: post.value === "true" });
+      }
+  
+      for (let i = 0; i < 3; i++) {
+        const fileInput = document.querySelector(`input[name="doc${i}"]`);
+        if (fileInput && fileInput.files.length > 0) {
+          formData.append("docs", fileInput.files[0]);
+        }
+      }
+  
+      formData.append("project", project);
+      formData.append("plotNumber", plot);
+      formData.append("phase", task);
+      formData.append("checklist", JSON.stringify(checklist));
+  
+      const token = localStorage.getItem("token");
+  
+      try {
+        const res = await fetch("http://localhost:3000/api/progress", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        });
+  
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById("msg").style.color = "green";
+          document.getElementById("msg").textContent = "บันทึกความก้าวหน้าสำเร็จแล้ว";
+        } else {
+          document.getElementById("msg").style.color = "red";
+          document.getElementById("msg").textContent = data.error || "ส่งข้อมูลไม่สำเร็จ";
+        }
+      } catch (err) {
+        document.getElementById("msg").style.color = "red";
+        document.getElementById("msg").textContent = "เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์";
+      }
+    });
+  </script>
+  
+
+</body>
+</html>
+

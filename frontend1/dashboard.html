@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contractor Dashboard</title>
+</head>
+<body>
+  <h2>Welcome, Contractor</h2>
+
+  <label for="project">Select Project:</label>
+  <select id="project">
+    <option value="PR001">PR001</option>
+    <option value="PR002">PR002</option>
+  </select>
+  <br/><br/>
+
+  <label for="plot">Select Plot Number:</label>
+  <select id="plot">
+    <option value="01">01</option>
+    <option value="02">02</option>
+    <option value="03">03</option>
+  </select>
+  <br/><br/>
+
+  <button id="goToProgress">Update Progress</button>
+
+  <script>
+    document.getElementById('goToProgress').addEventListener('click', () => {
+      const project = document.getElementById('project').value;
+      const plot = document.getElementById('plot').value;
+      // บันทึกไว้ใน localStorage เพื่อใช้ใน progress.html
+      localStorage.setItem('selectedProject', project);
+      localStorage.setItem('selectedPlot', plot);
+      window.location.href = 'progress.html';
+    });
+  </script>
+</body>
+</html>

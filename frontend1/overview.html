@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Overview</title>
+  <script src="https://kit.fontawesome.com/491181ce4b.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+  <h2>ข้อมูลโครงการ</h2>
+  <div id="project-info">
+    <p>โครงการ: <span id="projectName"></span></p>
+    <p>เลขแปลง: <span id="plotNumber"></span></p>
+    <p><strong>วันเริ่มต้น-สิ้นสุดสัญญา:</strong> <span id="contractDates"></span></p>
+    <p><strong>รายละเอียดบ้าน:</strong> <span id="houseDetail"></span></p>
+    <p><strong>ผู้รับเหมาหลัก:</strong> <span id="mainContractor"></span></p>
+  </div>
+  <h3>ตารางรายการงาน</h3>
+  <table id="taskTable">
+    <thead>
+      <tr>
+        <th>งวดที่</th>
+        <th>ชื่องาน</th>
+        <th>weight</th>
+        <th>%งาน</th>
+        <th>รวม</th>
+        <th>ยื่น Request</th>
+      </tr>
+    </thead>
+    <tbody id="taskBody">
+      <!-- แถวของงานจะถูกเพิ่มโดย JavaScript -->
+       
+    </tbody>
+  </table>
+
+
+  <script>
+    const tasks = [
+      { phase: 0, name: "1.งานเสาเข็ม (บมจ.ศุภาลัย จัดทำ)", weight: 4.63, status: "((weight*%งาน)/weight)",  "documents": [
+                    { "type": "pdf", "label": "เอกสารรายการคำนวณลูกตุ้ม" },
+                    { "type": "images", "label": "รูปการวัดลูกตุ้ม", "multiple": true },
+                    { "type": "pdf", "label": "เอกสารผังเดินปั้นจั่น" },
+                    { "type": "pdf", "label": "เอกสารบันทึกการทำงานของปั้นจั่น" },
+                    { "type": "pdf", "label": "เอกสารบันทึก  Blow Count" },
+                    { "type": "pdf", "label": "เอกสารตรวจสภาพความพร้อมปั้นจั่น" }
+                ] },
+      { phase: 1, name: "2.งานวางผัง, รับมอบระดับดินบนแปลง", weight: 4.63, status: "กำลังดำเนินการ" },
+      { phase: 1, name: "3.งานฐานราก (ทรายรองพื้น, เทคอนกรีตหยาบรองฐานราก, สกัดหัวเสาเข็ม)", weight: 1.36 },
+      { phase: 1, name: "4.งานเสาตอม่อ", weight: 0.41 },
+      { phase: 1, name: "5.งานคานชั้นล่าง (เทคอนกรีตหยาบรองท้องคาน)", weight: 3.02 },
+      { phase: 1, name: "6.งานเสาชั้นล่าง", weight: 1.00,  
+      "documents": [
+                    { "type": "pdf", "label": "เอกสารส่งมอบระดับดิน" }
+                 ] },
+      { phase: 2, name: "7.งานคานชั้นบน", weight: 3.56 },
+      { phase: 2, name: "8.งานพื้นชั้นบน", weight: 4.08 },
+      { phase: 2, name: "9.งานเสาชั้นบน", weight: 1.32 },
+      { phase: 2, name: "10.งานคานหลังคาคอนกรีต (ถ้ามี)", weight: 0.00 },
+      { phase: 2, name: "11.งานเดินท่อสุขาภิบาล, ท่อร้อยสายไฟฟ้าใต้พื้นชั้นล่าง", weight: 0.07 },
+      { phase: 2, name: "12.งานเดินท่อกำจัดปลวก, อัดน้ำยากำจัดปลวกลงดิน (ถ้ามี) (บมจ.ศุภาลัย จัดทำ)", weight: 0.35,  "documents": [
+                    { "type": "pdf", "label": "เอกสารผลเทสลูกปูน 7 วัน" }
+                 ] }, 
+      { phase: 3, name: "13.งานพื้นชั้นล่าง (เทคอนกรีตหยาบรองพื้นห้องน้ำ)", weight: 2.12 },
+      { phase: 3, name: "14.งานฐานราก, คาน, เสา, พื้น ของที่จอดรถแบบแยกจากตัวบ้าน (ถ้ามี)", weight: 0.00 },
+      { phase: 3, name: "15.งานอะเสเหล็ก, งานโครงหลังคา (บมจ.ศุภาลัย จัดทำ))", weight: 3.91 },
+      { phase: 3, name: "16.งานเชิงชาย", weight: 0.59 },
+      { phase: 3, name: "17.งานที่จอดรถ พร้อมถนนเข้าที่จอดรถในบ้าน)", weight: 2.00 },
+      { phase: 3, name: "18.งานบันไดคอนกรีต ง", weight: 0.56 },
+      { phase: 3, name: "19.งานเดินท่อประปาและสุขาภิบาล", weight: 1.95 },
+      { phase: 3, name: "20.งานก่ออิฐ (100%)", weight: 4.09 },
+      { phase: 3, name: "21.งานติดตั้งวงกบไม้ (100%)", weight: 0.68,  "documents": [
+                    { "type": "pdf", "label": "เอกสารผลเทสลูกปูน 28 วัน" },
+                    { "type": "pdf", "label": "เอกสารส่งมอบพื้นที่หลังคา" }
+                 ] }, 
+      { phase: 4, name: "22.งานมุงกระเบื้องหลังคาตัวบ้าน (บมจ.ศุภาลัย จัดทำ)", weight: 2.63 },
+      { phase: 4, name: "23.งานเดินท่อร้อยสาย ไฟฟ้า / TV / โทรทัศน์ พร้อมติดตั้งกล่องต่อสาย", weight: 3.52 },
+      { phase: 4, name: "24.งานทดสอบระบบสุขาภิบาล ก่อนปูกระเบื้อง", weight: 0.17 },
+      { phase: 4, name: "25.งานฉาบปูนภายใน (100%)", weight: 3.53 },
+      { phase: 4, name: "26.งานปูนพื้น - ผนังห้องน้ำ (100%)", weight: 3.53,  "documents": [
+                    { "type": "pdf", "label": "เอกสารทดสอบระบบสุขาภิบาล" }
+                 ] }, 
+      { phase: 5, name: "27.งานฉาบปูนภายนอก (100%)", weight: 4.79 },
+      { phase: 5, name: "28.งานติดตั้งโครงเคร่าฝ้าภายใน - ภายนอก", weight: 3.59 },
+      { phase: 5, name: "29.งานเดินสายไฟฟ้า พร้อมตรวจสอบระบบไฟฟ้าก่อนติดตั้งอุปกรณ์", weight: 3.30 },
+      { phase: 5, name: "30.งานราวระเบียง", weight: 0.88 },
+      { phase: 5, name: "31.งานอะเสเหล็ก, งานโครงหลังคา, มุงกระเบื้องหลังคาที่จอดรถ (บมจ.ศุภาลัย จัดทำ), เชิงชาย) ", weight: 0.00 },
+      { phase: 5, name: "32.งานฉาบผิวบาง (SKIM COAT) ภายใน - ภายนอก (ยกเว้นพื้นที่ปูวอลเปเปอร์และวัสดุตกแต่งผนัง)", weight: 2.08,  "documents": [
+                    { "type": "pdf", "label": "เอกสารทดสอบระบบไฟฟ้า" },
+                    { "type": "pdf", "label": "เอกสารส่งมอบพื้นที่รั้วแบ่งแปลง" },
+                    { "type": "images", "label": "รูปบริเวณโดยรอบตัวบ้าน", "multiple": true }
+                 ] },
+      { phase: 6, name: "33.งานติดตั้งบานประตู - หน้าต่าง พร้อมกระจกบริเวณรอบนอก (ไม้)", weight: 0.19 },
+      { phase: 6, name: "34.งานติดตั้งวงกบและบานประตู - หน้าต่าง พร้อมกระจกบริเวณรอบนอก (อลูมิเนียม/UPVC)", weight: 9.16 },
+      { phase: 6, name: "35.งานติดตั้งฉนวนกันความร้อน(100%)(ถ้ามี)", weight: 0.70 },
+      { phase: 6, name: "36.งานติดตั้งฝ้าเพดาน ภายใน - ภายนอก", weight: 1.32 },
+      { phase: 6, name: "37.งานทาสีรองพื้น ภายใน-ภายนอก)", weight: 1.32 },
+      { phase: 6, name: "38.งานติดตั้งพื้นผิวบน - ล่าง (80%) (ยกเว้น พื้นหินอ่อน, แกรนิต, ปาร์เก้สำเร็จรูป)", weight: 3.53 },
+      { phase: 6, name: "39.งานปูปาร์เก้ไม้จริง (ถ้ามี), บัวฝ้าเพดาน (ถ้ามี)", weight: 0.40,  "documents": [
+                    { "type": "pdf", "label": "เอกสารส่งมอบช่องเปิดประตู/หน้าต่าง UPVC" }
+                 ] }, 
+      { phase: 7, name: "40.งานถังบำบัดสำเร็จรูป, ถังดักไขมันสำเร็จรูป", weight: 2.61 },
+      { phase: 7, name: "41.งานบ่อพัก, บ่อดักกลิ่น, บ่อดักขยะ, เดินท่อภายนอกอาคาร, งานต่อท่อเข้าบ่อพักถนนหน้าแปลง", weight: 1.90 },
+      { phase: 7, name: "42.งานฐานราก, เสา, โครงหลังคา, หลังคาของที่จอดรถแบบแยกจากตัวบ้าน (หลังคามุงแผ่นโพลีฯ) (ถ้ามี)", weight: 0.00 },
+      { phase: 7, name: "43.งานลานซักล้าง (ส่วน ON GROUND)", weight: 0.65 },
+      { phase: 7, name: "44.งานติดตั้งบานประตูภายใน (ไม้) และ งานติดตั้งวงกบและบานประตูภายใน (อลูมิเนียม/UPVC)", weight: 2.63 },
+      { phase: 7, name: "45.งานติดตั้งกระจกพร้อมอุปกรณ์ ประตู - หน้าต่าง (100%)", weight: 0.48 },
+      { phase: 7, name: "46.งานติดตั้งพื้นผิวบน - ล่าง (100%) (ยกเว้น พื้นหินอ่อน, แกรนิต, ปาร์เก้สำเร็จรูป), บัวเชิงผนัง", weight: 1.83,  "documents": [
+                    { "type": "pdf", "label": "เอกสารส่งมอบกุญแจบ้าน]" }
+                 ] }, 
+      { phase: 8, name: "47.งาน TOP COUNTER", weight: 0.11 },
+      { phase: 8, name: "48.งานติดตั้งสุขภัณฑ์ พร้อมอุปกรณ์, กระจกเงาห้องน้ำ (ถ้ามี), เชื่อมระบบประปา, พร้อมทดสอบระบบสุขาภิบาลหลังปูกระเบื้อง", weight: 1.33 },
+      { phase: 8, name: "49.งานพื้นหินอ่อน, แกรนิต (ถ้ามี)", weight: 0.00 },
+      { phase: 8, name: "50.งานบันไดไม้ (ถ้ามี), งานพื้นผิวบันได, ราวบันได, บัวบันได", weight: 2.77 },
+      { phase: 8, name: "51.งานติดตั้งอุปกรณ์ไฟฟ้า, ปักแท่งGround Rod พร้อมเชื่อมต่อสายดิน, งานสายไฟเมนจากมิเตอร์ และทดสอบระบบไฟฟ้าหลังติดตั้งอุปกรณ์", weight: 1.28 },
+      { phase: 8, name: "52.งานสี (100%) (ยกเว้นบริเวณที่จะติดWallpaper)", weight: 1.97 },
+      { phase: 8, name: "53.งานshower Bar (ถ้ามี) (บมจ.ศุภาลัย จัดทำ)", weight: 0.00 },
+      { phase: 8, name: "54.งานทำความสะอาด, งานลอกท่อ - บ่อพักในและนอกบ้าน, เคลียร์เศษวัสดุออก, งานปรับพื้นที่", weight: 0.15 },
+      { phase: 8, name: "55.งานอัดน้ำยากำจัดปลวกลงดิน รอบนอกอาคาร (ถ้ามี)", weight: 0.15,  "documents": [
+                    { "type": "pdf", "label": "เอกสารทดสอบระบบสุขาภิบาล" },
+                    { "type": "images", "label": "รูปการทดสอบระบบสุขาภิบาล", "multiple": true },
+                    { "type": "pdf", "label": "เอกสารทดสอบระบบไฟฟ้า" },
+                    { "type": "images", "label": "รูปการทดสอบระบบไฟฟ้า", "multiple": true },
+                    { "type": "pdf", "label": "เอกสารส่งมอบงานสวน" },
+                    { "type": "pdf", "label": "เอกสารส่งมอบงานพื้นลามิเนท" },
+                    { "type": "pdf", "label": "เอกสารส่งมอบพื้นที่รั้วแบ่งแปลง(ส่งกลับคืน)" },
+                    { "type": "pdf", "label": "ใบนัด QC ฝ่ายขาย" },
+                    { "type": "images", "label": "รูปภายใน/ภายนอก/บ่อดักกลิ่นภายนอก/ลอกบ่อพักหน้าบ้าน", "multiple": true }
+                 ] }, 
+      { phase: 9, name: "56.งานเก็บ, ติดSticker QC, งานห่อหุ้มอุปกรณ์", weight: 0.61 },
+      { phase: 9, name: "57.งานรับมอบบ้าน", weight: 0.98,  "documents": [
+                    { "type": "pdf", "label": "เอกสารรับมอบบ้าน" },
+                    { "type": "pdf", "label": "เอกสารส่งมอบกุญแจให้ฝ่ายขาย" },
+                    { "type": "images", "label": "รูปห่อหุ้มสุขภัณฑ์", "multiple": true }
+                 ] }
+      // เพิ่มงานอื่น ๆ ต่อที่นี่ได้เลย...
+    ];
+
+
+    const tbody = document.getElementById("taskBody");
+    const phaseMap = new Map();
+    const inputRefs = {};
+
+    tasks.forEach((task, index) => {
+      const tr = document.createElement("tr");
+      const inputId = `percent-${index}`;
+
+      if (!inputRefs[task.phase]) inputRefs[task.phase] = [];
+      const isFirstOfPhase = !phaseMap.has(task.phase);
+      phaseMap.set(task.phase, true);
+
+      tr.innerHTML = `
+  ${isFirstOfPhase ? `<td rowspan="${tasks.filter(t => t.phase === task.phase).length}" style="vertical-align: top;">งวดที่${task.phase}</td>` : ''}
+  <td style="text-align: left;">${task.name}</td>
+  <td>${task.weight.toFixed(2)}</td>
+  <td><input type="number" id="${inputId}" step="0.01" min="0" max="100" /></td>
+  ${isFirstOfPhase ? `<td rowspan="${tasks.filter(t => t.phase === task.phase).length}" id="sum-${task.phase}" style="vertical-align: middle;">0.00</td>` : ''}
+  <td><button onclick="goToProgressPage('${task.name}')">เลือก</button></td>
+`;
+
+
+      tbody.appendChild(tr);
+      inputRefs[task.phase].push({ id: inputId, weight: task.weight });
+
+      // เพิ่มแถวแนบเอกสารของงวดนั้น ถ้าเป็นแถวสุดท้ายของ phase
+      const isLastOfPhase = tasks.findIndex(t => t.phase === task.phase) +
+        tasks.filter(t => t.phase === task.phase).length - 1 === index;
+
+     if (isLastOfPhase) {
+  const docRow = document.createElement("tr");
+  docRow.innerHTML = `
+    <td colspan="6" style="text-align: center; background: #f9f9f9; color: #cd0000;">
+      <button onclick="handlePhaseDocument(${task.phase})"
+        style="background: none; border: none; color: #cd0000;  cursor: pointer; font-size: 1rem; ">
+        แนบเอกสารเบิกงวดที่ ${task.phase}<span id="icon-phase-${task.phase}" style="margin-left:5px"><i class="fa-solid fa-chevron-down"></i></span>
+      </button>
+      <div id="documentFormContainer-${task.phase}" style="margin-top: 1em;"></div>
+    </td>
+  `;
+
+  tbody.appendChild(docRow);
+}
+
+
+    });
+
+    // คำนวณรวม
+    Object.entries(inputRefs).forEach(([phase, inputs]) => {
+      inputs.forEach(({ id }) => {
+        const input = document.getElementById(id);
+        input.addEventListener("input", () => {
+          let weightedSum = 0;
+          let totalWeight = 0;
+
+          inputs.forEach(({ id, weight }) => {
+            const val = parseFloat(document.getElementById(id).value) || 0;
+            weightedSum += weight * val;
+            totalWeight += weight;
+          });
+
+          const result = totalWeight > 0 ? (weightedSum / totalWeight).toFixed(2) : "0.00";
+          const sumCell = document.getElementById(`sum-${phase}`);
+          if (sumCell) sumCell.textContent = result;
+        });
+      });
+    });
+
+    // เช็ค URL parameters ก่อนใช้ localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectFromURL = urlParams.get("projectName");
+    const plotFromURL = urlParams.get("plotNumber");
+
+    if (projectFromURL && plotFromURL) {
+      localStorage.setItem("projectName", projectFromURL);
+      localStorage.setItem("plotNumber", plotFromURL);
+    }
+
+    // localStorage ใช้ตามเดิม
+    document.getElementById('projectName').textContent = localStorage.getItem('projectName');
+    document.getElementById('plotNumber').textContent = localStorage.getItem('plotNumber');
+    document.getElementById('contractDates').textContent = "15/03/2025 - 10/10/2025";
+    document.getElementById('houseDetail').textContent = "ศุภกฤต(T)/R DL Rev.3";
+    document.getElementById('mainContractor').textContent = "ห้างหุ้นส่วนจำกัด คงทรัพย์ คอนสตรัคชั่น";
+
+    function goToProgressPage(taskName) {
+      localStorage.setItem('taskName', taskName);
+      const projectName = localStorage.getItem("projectName");
+      const plotNumber = localStorage.getItem("plotNumber");
+      const houseType = localStorage.getItem("houseType");
+
+      const url = `/progress.html?projectName=${encodeURIComponent(projectName)}&plotNumber=${encodeURIComponent(plotNumber)}`;
+      window.location.href = url;
+    }
+
+function handlePhaseDocument(phase) {
+  const container = document.getElementById(`documentFormContainer-${phase}`);
+  if (!container) return;
+
+  let existingSection = document.getElementById(`document-section-${phase}`);
+  const icon = document.getElementById(`icon-phase-${phase}`);
+
+  // toggle visibility
+  if (existingSection) {
+    const visible = existingSection.style.display !== "none";
+    existingSection.style.display = visible ? "none" : "block";
+    if (icon) icon.innerHTML = `<i class="fa-solid fa-chevron-${visible ? "down" : "up"}"></i>`;
+    return;
+  }
+
+  if (icon) icon.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+
+  // New section
+  existingSection = document.createElement("div");
+  existingSection.id = `document-section-${phase}`;
+  existingSection.style.border = "1px solid #ccc";
+  existingSection.style.padding = "1em";
+  existingSection.style.marginTop = "1em";
+  existingSection.style.background = "#fff";
+
+  // Create table
+  const table = document.createElement("table");
+  table.style.width = "100%";
+  table.style.borderCollapse = "collapse";
+  table.style.marginTop = "0";
+  // Header
+  const thead = document.createElement("thead");
+  thead.innerHTML = `
+<tr style="color: #000;">
+  <th style="text-align: center; border-bottom: 1px solid #ccc; padding: 8px; width: 70%;">รายละเอียด</th>
+  <th style="text-align: center; border-bottom: 1px solid #ccc; padding: 8px; width: 30%;">แนบไฟล์</th>
+</tr>
+
+  `;
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+
+  // For each document in the phase
+  const tasksInPhase = tasks.filter(task => task.phase === phase);
+  tasksInPhase.forEach((task, taskIdx) => {
+    if (!task.documents) return;
+
+    task.documents.forEach((doc, docIdx) => {
+      const inputId = `file-input-${phase}-${taskIdx}-${docIdx}`;
+      const multiple = doc.multiple ? "multiple" : "";
+      const accept = doc.type === "images" ? "image/*" : "application/pdf";
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td style="padding: 8px; vertical-align: middle; color: #000;">${doc.label}</td>
+        <td style="padding: 8px; color: #000;">
+          <input  id="${inputId}" type="file" accept="${accept}" ${multiple}
+            onchange="this.nextElementSibling.style.display = this.files.length ? 'inline' : 'none';" />
+         
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  });
+
+  table.appendChild(tbody);
+  existingSection.appendChild(table);
+  container.appendChild(existingSection);
+}
+
+
+
+  </script>
+  </main>
+</body>
+
+</html>

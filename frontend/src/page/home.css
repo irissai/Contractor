@@ -1,0 +1,259 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* font-family: sans-serif; */
+}
+.sidebar {
+  position: fixed;
+  top: 70px; /* เว้นที่ navbar จริง */
+  left: 0;
+  height: calc(100vh - 70px); /* เต็มความสูงลบ navbar */
+  width: 14vw;
+  background-color: #f0f0f0;
+  padding: 0.1rem;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  z-index: 998;
+  transition: width 0.3s ease;
+}
+
+@media (min-width: 1301px) and (max-width: 1400px) {
+  .sidebar {
+    top: 68px !important; /* ถ้า navbar สูงเปลี่ยน ต้องปรับตรงนี้ด้วย */
+    height: calc(100vh - 68px)!important;
+  }
+}
+
+
+.container {
+  display: flex;
+  flex: 1;
+  margin-left: 14vw;
+}
+
+
+.main-content {
+  flex: 1;
+  /* padding: 0 3rem 3rem 3rem; */
+  background-color: #fff;
+  /* margin-top: 60px; เว้นที่ navbar */
+}
+
+
+.main-content h1 {
+ text-align: center;
+  font-weight: 400;
+}
+
+.main-content h3 {
+    margin-top: 30px;
+  font-weight: 500;
+}
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td  {
+      border: 1px solid #DDDDDD;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .taskName {
+        text-align: start;
+    }
+
+    #project-info p {
+        font-size: 18px;
+margin: 8px 0;
+ font-weight: 600;
+    }
+
+        #project-info p span{
+ font-weight: normal;
+    }
+
+    #taskTable {
+        margin: 0;
+    }
+
+    thead tr th {
+        /* background-color: #b7b6b268; */
+        font-weight: 600;
+    }
+
+    .percent-input {
+  position: relative;
+  width: 100%;
+}
+
+
+.percent-input::after {
+  content: "%";
+  position: absolute;
+  font-size: 12px;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a7a7a;
+  pointer-events: none;
+}
+
+
+.project-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 25px;
+  margin-bottom: 2rem;
+}
+
+.project-card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+#project-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+#project-info span {
+  font-weight: 600;
+  color: #222;
+}
+
+#taskTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#taskTable thead {
+  background-color: #f7f7f7;
+}
+
+/* #taskTable th, #taskTable td { */
+  /* border: 1px solid #e0e0e0; */
+  /* padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.95rem; */
+/* } */
+
+#taskTable td.taskName {
+  text-align: left;
+}
+
+#taskTable input[type="number"] {
+  /* border: 1px solid #ccc; */
+  border-radius: 6px;
+  padding: 4px;
+  width: 60px;
+  font-size: 0.9rem;
+}
+
+#taskTable input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.total-cell {
+  background-color: #eaf4ff;
+  color: #0a58ca;
+   display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-align: center;
+  min-width: 90px;
+  border: 1px solid #0a58ca;
+  /* display: inline-block; */
+}
+
+.circular-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress {
+  width: 50px;
+  height: 50px;
+  /* transform: rotate(-90deg); */
+  margin-bottom: 4px;
+}
+
+.circle-bg {
+  stroke: #eee;
+}
+
+.circle {
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.percentage-text {
+  dominant-baseline: middle;
+  font-weight: bold;
+}
+
+.total-value {
+  font-size: 14px;
+  color: #000000;
+  font-weight: bold;
+}
+.circular-progress path.circle {
+  transition: stroke-dasharray 0.5s ease;
+  stroke-linecap: round;
+}
+
+.circular-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+input[type=number] {
+  width: 70px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  /* border: 1px solid #ccc; */
+  font-size: 14px;
+  text-align: center;
+}
+input[type=number]:focus {
+  outline: none;
+  border-color: #3b8aff;
+  box-shadow: 0 0 5px #3b89ff34;
+}
+
+/* .installment-card-home { */
+  /* background: #ffffff; */
+  /* padding: 2.5rem; */
+  /* border-radius: 24px; */
+  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); */
+/* } */
+.installment-wrapper-home {
+  width: 100%;
+  /* max-width: 900px; */
+  margin: 0 auto;
+}
+.installment-card-home {
+  will-change: opacity;
+  /* หรือ */
+  transform: translateZ(0);
+}

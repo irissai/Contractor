@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contractor Login</title>
+</head>
+<body>
+  <h2>WELCOME TO CONTRACTOR SYSTEM</h2>
+  <form id="loginForm">
+    <label>ชื่อผู้ใช้:</label><br/>
+    <input type="text" id="username" required /><br/><br/>
+    
+    <label>รหัสผ่าน:</label><br/>
+    <input type="password" id="password" required /><br/><br/>
+    
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="msg" style="color: red;"></p>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('http://localhost:3000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          msg.style.color = 'green';
+          msg.textContent = 'Login successful!';
+          // ไปหน้า progress.html หลังจากล็อกอิน
+          window.location.href = '/select-project.html';
+        } else {
+          msg.textContent = data.error || 'Login failed';
+        }
+      } catch (err) {
+        msg.textContent = 'Error connecting to server';
+      }
+    });
+  </script>
+</body>
+</html>
