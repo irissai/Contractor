@@ -11,7 +11,13 @@ const tasksRouter = require('./routes/task');
 
 const app = express();
 // app.use(cors());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://contractor-6j0k.onrender.com"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
