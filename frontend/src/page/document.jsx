@@ -20,7 +20,7 @@ const [documentsByPhase, setDocumentsByPhase] = useState({});
   });
 
 useEffect(() => {
-  axios.get("http://localhost:3000/api/task/")
+  axios.get("https://contractor-6j0k.onrender.com/api/task/")
     .then(response => {
       const data = response.data;
 console.log("Raw data from backend:", data);  // <== เพิ่มตรงนี้เช็คข้อมูลดิบ

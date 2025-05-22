@@ -61,7 +61,7 @@ export default function RequestForm() {
         e.preventDefault();
         try {
             console.log("sending phase:", selectedTask.phase);
-            const response = await axios.put(`http://localhost:3000/api/task/update-status`, {
+            const response = await axios.put(`https://contractor-6j0k.onrender.com/api/task/update-status`, {
                 phase: selectedTask.phase,
                 name: selectedTask.name,
                 newStatus: "กำลังดำเนินงาน",

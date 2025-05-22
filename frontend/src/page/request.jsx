@@ -15,7 +15,7 @@ const ProjectOverview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/task/")
+    axios.get("https://contractor-6j0k.onrender.comapi/task/")
       .then(response => {
         const data = response.data;
         let allTasks = [];

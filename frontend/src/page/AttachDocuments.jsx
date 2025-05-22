@@ -59,7 +59,7 @@ const AttachDocuments = () => {
     });
 
     try {
-      await axios.post("http://localhost:3000/api/task/upload-documents", formData, {
+      await axios.post("https://contractor-6j0k.onrender.com/api/task/upload-documents", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
