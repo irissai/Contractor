@@ -18,8 +18,8 @@ const ProjectOverview = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // axios.get("https://contractor-6j0k.onrender.com/api/task/")
-    axios.get("http://localhost:3000/api/task/")
+    axios.get("https://contractor-6j0k.onrender.com/api/task/")
+    // axios.get("http://localhost:3000/api/task/")
       .then(response => {
         const data = response.data;
         let allTasks = [];

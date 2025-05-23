@@ -19,8 +19,8 @@ const ProjectOverview = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // axios.get("https://contractor-6j0k.onrender.com/api/task/").then((response) => {
-    axios.get("http://localhost:3000/api/task/").then((response) => {
+    axios.get("https://contractor-6j0k.onrender.com/api/task/").then((response) => {
+    // axios.get("http://localhost:3000/api/task/").then((response) => {
       const data = response.data;
       let allTasks = [], percentArr = [];
       data.forEach((phaseObj) => {
@@ -48,8 +48,8 @@ const ProjectOverview = () => {
     newPercentValues[index] = numValue;
     setPercentValues(newPercentValues);
     const task = tasks[index];
-    // axios.patch("https://contractor-6j0k.onrender.com/api/task/update-percent", {
-    axios.patch("http://localhost:3000/api/task/update-percent", {
+    axios.patch("https://contractor-6j0k.onrender.com/api/task/update-percent", {
+    // axios.patch("http://localhost:3000/api/task/update-percent", {
       phase: task.phase,
       taskName: task.name,
       percent: numValue,
