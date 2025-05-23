@@ -6,7 +6,7 @@ import Home from "../src/page/home"
 import Request from "../src/page/request"
 import RequestForm from "../src/page/requestForm"
 import Document from '../src/page/document';
-import AttachDocument from '../src/page/AttachDocuments';
+import AttachDocument from '../src/page/attachDocuments';
 import Login from '../src/page/login'
 import Logout from '../src/page/logout'
 import SelectProject from '../src/page/selectProject'

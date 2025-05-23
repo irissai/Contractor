@@ -13,7 +13,8 @@ const ContractorLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://contractor-6j0k.onrender.com/api/auth/login", {
+            const res = await fetch("https://contractor-6j0k.onrender.com/api/auth/login", {
+      // const res = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,8 +26,8 @@ const ContractorLogin = () => {
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
-
         const userRes = await fetch("https://contractor-6j0k.onrender.com/api/auth/me", {
+        // const userRes = await fetch("http://localhost:3000/api/auth/me", {
           headers: {
             Authorization: `Bearer ${data.token}`,
           },

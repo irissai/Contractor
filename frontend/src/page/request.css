@@ -18,20 +18,55 @@
   transition: width 0.3s ease;
 }
 
-@media (max-width: 1400px) {
-  .sidebar {
-    top: 50px; /* ถ้า navbar สูงเปลี่ยน ต้องปรับตรงนี้ด้วย */
-    height: calc(100vh - 50px);
+
+
+@media (max-width: 576px) {
+  .span-Work-progress {
+    /* width: 10px !important; */
+       font-size: 8px !important;
+       /* padding: 6px 0 !important; */
   }
 }
 
 
-.container {
-  display: flex;
-  flex: 1;
-  margin-left: 14vw;
+@media (max-width: 768px) {
+  .bt-select {
+    padding: 5px 12px !important;
+    font-size: 12px !important;
+  }
+  .td-task-name {
+    padding: 8px 5px !important;
+  }
+  .span-Work-progress svg {
+    width: 11px !important;
+    height: 12px !important;
+  }
+ #workTypeCheckboxes {
+  display: block !important;
+}
+.content-request form, #project-info {
+  width: 100% !important;
+}
+ #workTypeCheckboxes label{
+    margin: 3px 0 !important;
+}
 }
 
+@media (max-width: 922px) {
+   #workTypeCheckboxes label {
+    padding: 5px 5px !important;
+      font-size: 11px !important;
+  }
+ 
+
+.underline-input::placeholder {
+  font-size: 10px !important;
+}
+
+}
+ #workTypeCheckboxes label {
+  font-size: 14px ;
+ }
 
 .main-content {
   flex: 1;
@@ -248,7 +283,7 @@ font-weight: 500;
 }
 
 .btn-primary {
-  background-color: #3697ff;
+  background-color: #1f7adb;
   color: white;
 }
 
@@ -269,7 +304,7 @@ font-weight: 500;
 }
 
 .checkmark-icon {
-  stroke: #2dcf08; /* เขียวแบบ success */
+  stroke: #46c02b; /* เขียวแบบ success */
   animation: pop 0.3s ease-out;
 
   width: 80px;  /* ✅ เพิ่มขนาดความกว้าง */

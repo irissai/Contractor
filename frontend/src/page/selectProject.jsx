@@ -74,7 +74,7 @@ const ContractorProjectSelect = () => {
           {userData?.projectName && (
             <option value={userData.projectName}>{userData.projectName}</option>
           )}
-          {/* <option value="other">อื่นๆ</option> */}
+          <option value="other">อื่นๆ</option>
         </select>
 
         {selectedProjectName === 'other' && (
@@ -97,7 +97,7 @@ const ContractorProjectSelect = () => {
           {userData?.plotNumber && (
             <option value={userData.plotNumber}>{userData.plotNumber}</option>
           )}
-          {/* <option value="other">อื่นๆ</option> */}
+          <option value="other">อื่นๆ</option>
         </select>
 
         {selectedPlotNumber === 'other' && (

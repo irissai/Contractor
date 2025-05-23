@@ -2,45 +2,179 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* font-family: sans-serif; */
 }
-.sidebar {
-  position: fixed;
-  top: 70px; /* เว้นที่ navbar จริง */
-  left: 0;
-  height: calc(100vh - 70px); /* เต็มความสูงลบ navbar */
-  width: 14vw;
-  background-color: #f0f0f0;
-  padding: 0.1rem;
-  border-right: 1px solid #ccc;
-  overflow-y: auto;
-  z-index: 998;
-  transition: width 0.3s ease;
+/* ซ่อน Sidebar เดิมบนมือถือ */
+
+
+@media (min-width: 769px) {
+  .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px); 
+    width: 14vw;
+    background-color: #f0f0f0;
+    padding: 0.1rem;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+    z-index: 998;
+    transition: width 0.3s ease;
+  }
+  .container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 40px;
+  margin-left: 14vw; /* สำหรับ desktop */
+}
 }
 
-@media (min-width: 1301px) and (max-width: 1400px) {
-  .sidebar {
-    top: 68px !important; /* ถ้า navbar สูงเปลี่ยน ต้องปรับตรงนี้ด้วย */
-    height: calc(100vh - 68px)!important;
+
+
+
+@media (max-width: 576px) {
+    table {
+   font-size: 12px !important;
+  }
+  .installment-header h1 {
+   font-size: 22px !important;
+}
+.project-card h3 {
+  font-size: 14px !important;
+}
+
+#project-info p {
+  font-size: 12px !important;
+}
+
+#project-info span {
+ font-size: 12px !important;
+}
+.phase-box h4 {
+  font-size: 12px !important;
+}
+.main-content{
+      padding: 30px 10px !important;
+  }
+  #taskTable {
+    font-size: 11px !important;
   }
 }
 
-
-.container {
-  display: flex;
-  flex: 1;
-  margin-left: 14vw;
+ @media (min-width: 576px) and (max-width: 768px) {
+.installment-header h1 {
+   font-size: 24px !important;
+}
+.project-card h3 {
+  font-size: 15px !important;
 }
 
+#project-info p {
+  font-size: 14px !important;
+}
+
+#project-info span {
+ font-size: 14px !important;
+}
+.phase-box h4 {
+  font-size: 14px !important;
+}
+ }
+
+@media (max-width: 992px) {
+    .desktop-sidebar {
+    display: none !important;
+  }
+   .container {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-left: 0 !important;
+    padding: 20px !important;
+  }
+
+  .main-content {
+    width: 100% !important;
+  }
+    /* table {
+    display: block !important;
+    overflow-x: auto !important;
+  } */
+  /* .main-content{
+        padding: 30px 20px !important;
+  } */
+}
+@media (max-width: 768px) {
+  
+
+  .project-card {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+ 
+svg .circle-home {
+  r: 13 !important;
+}
+svg text {
+  font-size: 5px !important; 
+}
+.tb-cl {
+  gap: 0 !important;
+}
+.t-progress {
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+}
+.nav-list li a {
+    font-size: 14px !important;
+}
+.nav-list li.active, .nav-list li a.active {
+    font-size: 14px;
+}
+.td-home{
+  padding: 6px 10px !important;
+}
+
+}
+
+ @media (min-width: 768px) and (max-width: 1400px) {
+ /* .container {
+    flex-direction: column !important;
+      padding: 15px !important;
+  } */
+    /* table {
+    display: block !important;
+    overflow-x: auto !important;
+  } */
+  .project-card {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+svg .circle-home {
+  r: 14 !important;
+}
+svg text {
+  font-size: 6px !important; 
+}
+.tb-cl {
+  gap: 0 !important;
+}
+.nav-list li a {
+    font-size: 14px !important;
+}
+.nav-list li.active, .nav-list li a.active {
+    font-size: 14px;
+}
+ }
+@media (max-width: 992px) {
+
+}
 
 .main-content {
   flex: 1;
-  /* padding: 0 3rem 3rem 3rem; */
   background-color: #fff;
-  /* margin-top: 60px; เว้นที่ navbar */
 }
 
-
+ 
 .main-content h1 {
  text-align: center;
   font-weight: 400;
@@ -87,7 +221,7 @@ margin: 8px 0;
     }
 
     thead tr th {
-        /* background-color: #b7b6b268; */
+    
         font-weight: 600;
     }
 
@@ -107,15 +241,41 @@ margin: 8px 0;
   color: #7a7a7a;
   pointer-events: none;
 }
+.project-card, .phase-box {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.phase-box > div {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .phase-box > div {
+    flex-direction: row !important;
+  }
+}
 
 
 .project-card {
-  background-color: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 24px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 25px;
-  margin-bottom: 2rem;
+  padding: 24px;
 }
+
+.installment-header h1 {
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+#project-info {
+  font-size: 18px;
+  color: #475569;
+}
+
 
 .project-card h3 {
   margin-top: 0;
@@ -143,13 +303,6 @@ margin: 8px 0;
 #taskTable thead {
   background-color: #f7f7f7;
 }
-
-/* #taskTable th, #taskTable td { */
-  /* border: 1px solid #e0e0e0; */
-  /* padding: 0.75rem 1rem;
-  text-align: center;
-  font-size: 0.95rem; */
-/* } */
 
 #taskTable td.taskName {
   text-align: left;
@@ -226,9 +379,10 @@ margin: 8px 0;
   align-items: center;
   gap: 6px;
 }
-
+ 
 input[type=number] {
-  width: 70px;
+   width: 100%;
+  max-width: 80px;
   padding: 6px 8px;
   border-radius: 5px;
   /* border: 1px solid #ccc; */
@@ -257,3 +411,4 @@ input[type=number]:focus {
   /* หรือ */
   transform: translateZ(0);
 }
+ 

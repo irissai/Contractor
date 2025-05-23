@@ -18,19 +18,51 @@
   transition: width 0.3s ease;
 }
 
-@media (max-width: 1400px) {
-  .sidebar {
-    top: 50px; /* ถ้า navbar สูงเปลี่ยน ต้องปรับตรงนี้ด้วย */
-    height: calc(100vh - 50px);
+.installment-header p,.MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-11eq0z7-MuiTableCell-root ,
+.MuiTypography-root.MuiTypography-h4.css-adbktx-MuiTypography-root{
+  font-family: "Prompt", sans-serif !important;
+  }
+   .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.bt-selectFile.css-17gqrz7-MuiButtonBase-root-MuiButton-root,
+ .MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeMedium.css-1ndsvv5-MuiTableCell-root{
+  font-family: "Prompt", sans-serif !important;
+
+ }
+ .MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-uday59-MuiTableCell-root,
+ .MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-1h3p417-MuiTableCell-root{
+  font-family: "Prompt", sans-serif !important;
+ }
+
+@media (max-width: 576px) {
+  .installment-header p {
+font-size: 14px !important;
+  }
+  .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.bt-selectFile.css-17gqrz7-MuiButtonBase-root-MuiButton-root{
+font-size: 11px !important;
+ 
+ }
+  .MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeMedium.css-1ndsvv5-MuiTableCell-root{
+  font-size: 13px !important;
+   /* .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-colorPrimary.bt-selectFile.css-17gqrz7-MuiButtonBase-root-MuiButton-root{
+  font-size: 10px !important;
+ } */
+  }
+  .MuiTypography-root.MuiTypography-h4.css-adbktx-MuiTypography-root{
+  font-size: 22px !important;
   }
 }
 
+@media (max-width: 768px) {
+ .MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-uday59-MuiTableCell-root
+ ,.MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-11eq0z7-MuiTableCell-root,.MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.css-1h3p417-MuiTableCell-root{
+font-size: 14px !important;
 
-.container {
+ }
+}
+/* .container {
   display: flex;
   flex: 1;
   margin-left: 14vw;
-}
+} */
 
 
 .main-content {

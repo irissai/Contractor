@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./home.css";
-import Navbar from "../navbar/navbar";
+import Navbar from "../navbar/LeftNavbar";
 import TopNavbar from "../navbar/TopNavbar";
 import { motion } from "framer-motion"; // <-- import
+import HamburgerMenu from "../navbar/MHamburgerMenu";
 
 const ProjectOverview = () => {
   const [tasks, setTasks] = useState([]);
@@ -15,9 +16,11 @@ const ProjectOverview = () => {
     houseDetail: "บ้านตัวอย่าง 2 ชั้น",
     mainContractor: "บจก.ผู้รับเหมาหลัก",
   });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    axios.get("https://contractor-6j0k.onrender.com/api/task/").then((response) => {
+    // axios.get("https://contractor-6j0k.onrender.com/api/task/").then((response) => {
+    axios.get("http://localhost:3000/api/task/").then((response) => {
       const data = response.data;
       let allTasks = [], percentArr = [];
       data.forEach((phaseObj) => {
@@ -45,7 +48,8 @@ const ProjectOverview = () => {
     newPercentValues[index] = numValue;
     setPercentValues(newPercentValues);
     const task = tasks[index];
-    axios.patch("https://contractor-6j0k.onrender.com/api/task/update-percent", {
+    // axios.patch("https://contractor-6j0k.onrender.com/api/task/update-percent", {
+    axios.patch("http://localhost:3000/api/task/update-percent", {
       phase: task.phase,
       taskName: task.name,
       percent: numValue,
@@ -60,28 +64,28 @@ const ProjectOverview = () => {
 
 
   return (
-    <div className="layout"  style={{}}>
-      <TopNavbar />
-      <div className="container" style={{ display: "flex", gap: "20px", padding: "40px" }}>
-        <div className="sidebar">
+    <div className="layout" style={{}}>
+      <TopNavbar onToggleMenu={() => setMenuOpen(true)} />
+      {menuOpen && <HamburgerMenu onClose={() => setMenuOpen(false)} />}
+      <div className="container" style={{}}>
+
+        <div className="sidebar desktop-sidebar">
           <Navbar />
         </div>
-  <div className="main-content">
+        <div className="main-content">
           <div className="installment-wrapper-home">
-           <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.3 }}
-  transition={{ duration: 0.4 }}
->
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4 }}
+            >
 
               <div className="project-card" style={{
                 backgroundColor: "#ffffff",
                 borderRadius: "12px",
-                // padding: "24px",
                 marginBottom: "24px",
-                // boxShadow: "0 10px 25px rgba(0, 0, 0, 0.08)",
-                boxShadow:'rgba(0, 0, 0, 0.08) 0px 10px 25px'
+                boxShadow: 'rgba(0, 0, 0, 0.08) 0px 10px 25px'
               }}>
                 <div className="installment-header">
                   <h1 style={{ fontWeight: "400", color: "#000", marginBottom: 16 }}>ข้อมูลโครงการ</h1>
@@ -118,7 +122,7 @@ const ProjectOverview = () => {
               </div>
 
               <div className="project-card">
-                <h3 style={{ marginBottom: "20px",fontSize:'20px' }}>รายการงานตามงวด</h3>
+                <h3 style={{ marginBottom: "20px", fontSize: '20px' }}>รายการงานตามงวด</h3>
                 {Object.keys(phaseCounts).map((phase) => {
                   const phaseTasks = tasks.filter((t) => t.phase === parseInt(phase));
                   const totalForPhase = phaseTasks.reduce(
@@ -156,8 +160,9 @@ const ProjectOverview = () => {
 
 
 
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-                        <table style={{ flex: 1, minWidth: "400px", fontSize: "14px", color: "#334155" }}>
+                      <div className="tb-cl" style={{ display: "flex", flexWrap: "wrap", gap: "15px", overflowX: "auto" }}>
+
+                        <table style={{ width: '100%', flex: 1, minWidth: "100px", fontSize: "14px", color: "#334155" }}>
                           <thead style={{ backgroundColor: "#f8fafc" }}>
 
                             <tr>
@@ -172,9 +177,9 @@ const ProjectOverview = () => {
                               const globalIndex = tasks.indexOf(task);
                               return (
                                 <tr key={index}>
-                                  <td className="td-home"  style={{ textAlign: "left", padding: "6px 20px" }}>{task.name}</td>
-                                  <td className="td-home"  style={{ textAlign: "center" }}>{task.weight}</td>
-                                  <td  className="td-home"  style={{ textAlign: "center" }}>
+                                  <td className="td-home" style={{ textAlign: "left", padding: "6px 20px" }}>{task.name}</td>
+                                  <td className="td-home" style={{ textAlign: "center" }}>{task.weight}</td>
+                                  <td className="td-home" style={{ textAlign: "center" }}>
                                     <input
                                       type="number"
                                       min="0"
@@ -203,10 +208,11 @@ const ProjectOverview = () => {
                           </tbody>
                         </table>
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minWidth: "160px", padding: "10px" }}>
-                          <div style={{ marginBottom: "8px", fontSize: "14px", fontWeight: "600", color: "#1e293b" }}>ความคืบหน้า</div>
+                          <div className="t-progress" style={{ marginBottom: "8px", fontSize: "14px", fontWeight: "600", color: "#1e293b" }}>ความคืบหน้า</div>
                           <div style={{ position: "relative", width: "100px", height: "100px" }}>
                             <svg viewBox="0 0 40 40" width="100" height="100">
                               <circle
+                              className="circle-home"
                                 cx="20"
                                 cy="20"
                                 r="16"
@@ -215,6 +221,7 @@ const ProjectOverview = () => {
                                 strokeWidth="4"
                               />
                               <circle
+                               className="circle-home"
                                 cx="20"
                                 cy="20"
                                 r="16"

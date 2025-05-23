@@ -77,3 +77,12 @@
 #username {
     margin-bottom: 20px;
 }
+
+@media (max-width: 576px) {
+  .login-container{
+    max-width: 320px !important;
+  }
+    .login-container h2{
+    font-size: 20px !important;
+  }
+}
