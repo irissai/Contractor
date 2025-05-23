@@ -181,12 +181,11 @@ const AttachDocuments = () => {
             {breadcrumbs}
           </Breadcrumbs>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4 }}
-          >
+         <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
 
             <div className="main-content" style={{ flexGrow: 1, backgroundColor: "#fff", borderRadius: 12, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.08)", padding: "30px 40px", }}>
 

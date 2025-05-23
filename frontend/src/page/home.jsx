@@ -74,12 +74,11 @@ const ProjectOverview = () => {
         </div>
         <div className="main-content">
           <div className="installment-wrapper-home">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.4 }}
-            >
+           <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
 
               <div className="project-card" style={{
                 backgroundColor: "#ffffff",
